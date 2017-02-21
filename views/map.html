@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="DataLogger">
+
+<head>
+	<title>Data logs</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js'></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCldjwRWqFJWjLF0Q20OSEHIFMQLsMg2to"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+	<link rel="stylesheet" href="/scripts/client-align.css">
+	<link rel="stylesheet" href="/scripts/timeline.css">
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/scripts/gservice.js"></script>
+	<script src="/scripts/socket.js"></script>
+	<script src="/scripts/data-logger.js"></script>
+
+</head>
+
+<div ng-include="'/partials/header.html'"></div>
+
+<body style="margin-bottom:60px;">
+<div class="container-fluid">
+	<div class="row row-grid">
+		<div ng-controller="DataLoggerCtrl">
+			<div class="col-sm-7">
+				<div id="map" style="height:450px;background-color:gray;"></div>
+</div>
+<div class="col-sm-5">
+	<div class="input-group">
+		<span class="input-group-addon">
+        				<i class="glyphicon glyphicon-filter"></i>
+    					</span>
+		<input class="form-control" ng-model="searchString" placeholder="Filter by name">
+	</div>
+	<div style="height:390px;overflow:auto;">
+<div class="panel panel-default" ng-repeat="item in data | searchFor:searchString| orderBy : 'NodeID'">
+	<div class="panel-body" style="align-item: center;justify-content: center;">
+<div class="col-sm-12">
+	<table class="table table-responsive table-condensed" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+<thead>
+	<tr>
+		<th class="text-center" colspan="2" id={{item.NodeID}}>
+			<h4><strong>{{item.NodeName}}</strong></h4>
+		</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th class="col-sm-3">
+			<a class="btn btn-default col-sm-10" href="/profile/{{item.NodeID}}" title="Go to profile"><i class="glyphicon glyphicon-wrench"></i></a>
+		</th>
+		<td>Node {{item.NodeID}}</td>
+	</tr>
+	<tr>
+		<th>
+			<button class="btn btn-default col-sm-10" ng-click="panTo(item);" title="Show on map"><i class="glyphicon glyphicon-map-marker"></i></button>
+		</th>
+		<td>{{item.Latitude}}, {{item.Longtitude}}, {{item.Altitude}}</td>
+	</tr>
+	<tr>
+		<th>
+			<button class="btn btn-default col-sm-10" ng-click="showGraph(item);" data-toggle="modal" data-target="#DataGraphModal" ;
+				title="View all reports"><i class="glyphicon glyphicon-stats"></i></button>
+		</th>
+		<td>
+			<table class="table table-responsive table-condensed table-hover" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+<thead>
+	<tr>
+		<th>Port</th>
+		<th>Type</th>
+		<th>Timestamp</th>
+		<th>Reading</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="report in item.Reports | orderBy : 'Port'">
+		<td>{{report.Port}}</td>
+		<td>{{report.Class}} </td>
+		<td><span title={{report.Tstamp}}>{{report.Tstamp|amCalendar}}</span></td>
+		<td>{{report.Reading}} {{report.Unit}}</td>
+	</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal -->
+<div ng-include="'/partials/report-modal.html'"></div>
+</div>
+</div>
+</body>
+
+<script src="/scripts/navbar.js"></script>
+<div ng-include="'/partials/navbar.html'"></div>
+
+</html>

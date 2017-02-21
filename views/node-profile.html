@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="NodeProfile" ng-controller="NodeProfileCtrl">
+
+<head>
+	<title>Node profile</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+	<link rel="stylesheet" href="/scripts/client-align.css">
+	<script src="/scripts/node-profile.js"></script>
+</head>
+
+<div ng-include="'/partials/header.html'"></div>
+
+<body style="margin-bottom:60px;">
+<div class="container-fluid" style="align-item: center;justify-content: center;">
+<div class="col-sm-3">
+	<h3>Node {{node.NodeID}}'s profile</h3>
+	<div ng-include="'/partials/edit-node-form.html'"></div>
+	<hr>
+</div>
+<div class="col-sm-3">
+	<h4>Add a port</h4>
+	<div class="form-group">
+		<label>Port:</label>
+		<input class="form-control" placeholder="Arduino or ESP8266 i/o pin" ng-model="new.Port">
+	</div>
+	<button type="submit" class="btn btn-primary" ng-click="createConfig()">Add</button>
+	<hr>
+	<h4>Configure a port</h4>
+	<div ng-include="'/partials/config-form.html'"></div>
+	<hr>
+</div>
+<div class="col-sm-6">
+	<h4>Current config</h4>
+	<table class="table table-responsive table-condensed table-hover" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+<thead>
+	<tr>
+		<th>Port</th>
+		<th>Cycle</th>
+		<th>Type</th>
+		<th>Unit</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="port in config | orderBy : 'Port'">
+		<td>{{port.Port}}</td>
+		<td>{{port.Cycle}} s</td>
+		<td>{{port.Class}} </td>
+		<td>{{port.Unit}} </td>
+	</tr>
+</tbody>
+</table>
+<hr>
+<h4>Latest reports</h4>
+<table class="table table-responsive table-condensed table-hover" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+<thead>
+	<tr>
+		<th>Port</th>
+		<th>Type</th>
+		<th>Timestamp</th>
+		<th>Reading</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="report in reports | orderBy : 'Port'">
+		<td>{{report.Port}}</td>
+		<td>{{report.Class}} </td>
+		<td><span title={{report.Tstamp}}>{{report.Tstamp|amCalendar}}</span></td>
+		<td>{{report.Reading}}</td>
+	</tr>
+</tbody>
+</table>
+<hr>
+</div>
+</body>
+
+<script src="/scripts/navbar.js"></script>
+<div ng-include="'/partials/navbar.html'"></div>
+
+</html>

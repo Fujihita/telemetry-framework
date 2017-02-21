@@ -1,0 +1,20 @@
+<form>
+<div class="form-group">
+	<label>Port:</label>
+	<select class="form-control btn btn-default" ng-model="port.Port" ng-change="updateForm()">
+				<option value="">Select a port</option>
+				<option ng-repeat="x in config">{{x.Port}}</option>
+			</select>
+</div>
+<div class="form-group">
+	<label>Report cycle (seconds):</label>
+	<input class="form-control" placeholder="Delay between reports" ng-model="port.Cycle">
+</div>
+<div class="form-group">
+	<label>Type:</label>
+	<input class="form-control" placeholder="Type of sensor or actuator" ng-model="port.Class">
+	<input class="form-control" placeholder="Unit (sensor only)" ng-model="port.Unit">
+</div>
+<button type="submit" class="btn btn-primary" ng-click="editConfig()">Save</button>
+<button type="button" class="btn btn-danger" ng-click="deleteConfig()">Delete</button>
+</form>

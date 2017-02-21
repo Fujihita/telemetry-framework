@@ -1,0 +1,20 @@
+<form>
+<div class="form-group">
+    <label>Address:</label>
+    <input class="form-control" placeholder="Rename the node" ng-model="node.DeviceID">
+</div>
+<div class="form-group">
+    <label>Name:</label>
+    <input class="form-control" placeholder="Rename the node" ng-model="node.NodeName">
+</div>
+<div class="form-group">
+    <label>Location:</label>
+    <div class="checkbox">
+        <label><input type="checkbox" id="clientGPS" ng-click="CheckBoxHandler()">Use client-side GPS</label>
+    </div>
+    <input id="LatitudeForm" class="form-control" placeholder="Latitude" type="number" ng-model="node.Latitude">
+    <input id="LongtitudeForm" class="form-control" placeholder="Longtitude" type="number" ng-model="node.Longtitude">
+    <input id="AltitudeForm" class="form-control" placeholder="Altitude" type="number" ng-model="node.Altitude">
+</div>
+<button type="submit" class="btn btn-primary" ng-click="update()">Save</button>
+</form>

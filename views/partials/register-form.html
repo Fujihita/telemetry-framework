@@ -1,0 +1,11 @@
+<form>
+    <div class="form-group">
+        <label>Device ID:</label>
+        <input class="form-control" placeholder="IMEI or MAC address" ng-model="node.DeviceID">
+    </div>
+    <div class="form-group">
+        <label>Node ID:</label>
+        <input class="form-control" placeholder="Available after registration" ng-model="node.NodeID" disabled>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="register()">Register</button>
+</form>

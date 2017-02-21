@@ -1,0 +1,71 @@
+		.btn-circle {
+			width: 80px;
+			height: 80px;
+			text-align: center;
+			padding: 28px 0;
+			font-size: 18px;
+			line-height: 1.42;
+			border-radius: 100%;
+			overflow: hidden;
+		}
+		
+		.btn-circle:hover {
+			background-color: #f44336;
+			/* Green */
+			border: 1px solid #f44336;
+			color: transparent;
+		}
+		
+		.btn-circle:before {
+			color: white;
+			font-size: 16px;
+			content: "Map";
+			display: none;
+			text-align: center;
+		}
+		
+		.btn-circle:hover:before {
+			display: block;
+		}
+		
+		.btn-circle:hover:after {
+			display: none;
+		}
+		
+		.btn-circle:after {
+			display: none;
+		}
+		
+		.btn-circle:active:before {
+			display: none;
+		}
+		
+		.btn-circle:active:after {
+			display: none;
+		}
+		
+		.row.row-grid [class*="col-"] + [class*="col-"] {
+			margin-top: 15px;
+		}
+		
+		@media (min-width: 1200px) {
+			.row.row-grid [class*="col-lg-"] + [class*="col-lg-"] {
+				margin-top: 0;
+			}
+		}
+		
+		@media (min-width: 992px) {
+			.row.row-grid [class*="col-md-"] + [class*="col-md-"] {
+				margin-top: 0;
+			}
+		}
+		
+		@media (min-width: 768px) {
+			.row.row-grid [class*="col-sm-"] + [class*="col-sm-"] {
+				margin-top: 0;
+			}
+		}
+
+		.table > tbody > tr > td {
+     vertical-align: middle;
+}

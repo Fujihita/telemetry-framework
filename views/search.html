@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Search">
+
+<head>
+    <title>Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel="stylesheet" href="/scripts/client-align.css">
+    <script src="/scripts/search.js"></script>
+</head>
+
+<div ng-include="'/partials/header.html'"></div>
+
+<body style="margin-bottom:60px;">
+<div class="container-fluid" style="align-item: center;justify-content: center;" ng-controller="SearchFormCtrl">
+<div class="col-sm-4">
+    <h4>Search for nodes by {{searchOption}}</h4>
+    <form>
+    <div class="form-group">
+        <input class="form-control" placeholder="Search phrase, blank to find all" ng-model="query">
+    </div>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary" ng-click="search()"><i class="glyphicon glyphicon-search"></i> Search</button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+        <ul class="dropdown-menu">
+            <li ng-repeat="item in options"><a ng-click="searchSelected(item)">Search by {{item}}</a></li>
+        </ul>
+    </div>
+    </form>
+    <hr>
+    </div>
+<div class="col-sm-8">
+    <h4>Search results</h4>
+    <table class="table table-responsive table-condensed table-hover" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+<thead>
+	<tr>
+		<th>NodeID</th>
+        <th>Address</th>
+		<th>Name</th>
+        <th>Profile</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="item in result">
+		<td>{{item.NodeID}}</a></td>
+        <td>{{item.DeviceID}}</a></td>
+		<td>{{item.NodeName}}</td>
+        <td><a href="/profile/{{item.NodeID}}">Link</a></td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+
+<script src="/scripts/navbar.js"></script>
+<div ng-include="'/partials/navbar.html'"></div>
+
+</html>

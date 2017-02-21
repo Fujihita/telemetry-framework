@@ -1,0 +1,19 @@
+<form>
+	<div class="form-group">
+		<label>Node ID:</label>
+		<input class="form-control" placeholder="Node ID" ng-model="report.NodeID">
+		<label>Port:</label>
+		<input class="form-control" placeholder="Port" ng-model="report.Port">
+	</div>
+	<div class="form-group">
+		<label>Reading:</label>
+		<input class="form-control" placeholder="Data to submit" ng-model="report.Reading">
+	</div>
+	<div class="form-group">
+		<label>Location (optional):</label>
+		<input class="form-control" placeholder="Latitude" type="number" ng-model="report.Latitude">
+		<input class="form-control" placeholder="Longtitude" type="number" ng-model="report.Longtitude">
+		<input class="form-control" placeholder="Altitude" type="number" ng-model="report.Altitude">
+	</div>
+	<button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+</form>

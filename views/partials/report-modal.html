@@ -1,0 +1,44 @@
+<div class="modal fade" id="DataGraphModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Reports for {{graph.NodeName}} (node {{graph.NodeID}})</h3>
+                <a href='#' ng-click='downloadCSV({ filename: "telemetry-data_node " + graph.NodeID + "_" + date + ".csv" });'>Download as CSV</a>
+            </div>
+            <div class="modal-body">
+                                            <p>
+                                <canvas class="chart chart-line" chart-dataset-override="graph.datasetOverride" chart-series="graph.series" chart-options="graph.options"
+                                chart-labels="graph.data.Tstamp" chart-data="graph.data.Reading"></canvas>
+                            </p>
+                <div class="container-fluid">
+                    <div class="col-sm-6" ng-repeat="port in graph.portData">
+                        <div style="text-align:center"><h4>Port {{port.Port}}</h4></div>
+                        <table class="table table-responsive table-condensed table-hover" style="margin-bottom:0px;overflow-wrap: break-word; word-wrap: break-word;">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Timestamp</th>
+                                <th>Reading</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="report in port.Reports| orderBy : 'Port'">
+                                <td>{{report.Class}} </td>
+                                <td><span title={{report.Tstamp}}>{{report.Tstamp|amCalendar}}</span></td>
+                                <td>{{report.Reading}} {{report.Unit}}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+</div>
+<div class="modal-footer">
+    <a href='#' class="btn btn-primary" ng-click='downloadCSV({ filename: "telemetry-data-" + graph.NodeID + ".csv" });'>Export</a>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+</div>

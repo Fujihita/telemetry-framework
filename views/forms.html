@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Forms">
+
+<head>
+	<title>Forms</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" href="/scripts/client-align.css">
+	<script src="/scripts/forms.js"></script>
+</head>
+
+<div ng-include="'/partials/header.html'"></div>
+
+<body style="margin-bottom:60px;">
+<div class="container-fluid" style="align-item: center;justify-content: center;">
+<div class="col-sm-4">
+	<h3>Register a node</h3>
+	<div ng-controller="RegisterFormCtrl" ng-include="'/partials/register-form.html'"></div>
+	<hr>
+</div>
+<div class="col-sm-4">
+	<h3>Submit a report</h3>
+	<div ng-controller="ReportFormCtrl" ng-include="'/partials/report-form.html'"></div>
+	<hr>
+</div>
+</div>
+</body>
+
+<script src="/scripts/navbar.js"></script>
+<div ng-include="'/partials/navbar.html'"></div>
+
+</html>
