@@ -22,11 +22,3 @@ app.use('/', router);
 app.use('/api', api_router);
 
 server.listen(process.env.PORT || 1337);
-
-function heartBeat(){
-   https.get({
-      hostname: 'fujihita.azurewebsites.net',
-      path: '/api/status',
-    }, (res) => {});
-}
-setInterval(heartBeat, 600000);

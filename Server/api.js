@@ -40,8 +40,10 @@ router.route('/data')
     })
     .post(function (request, response) {
         var callback = builder.callbackBuilder(response);
+        io.emit('update:data');
         database.post(request.body).then(function(){response.send("Report received!");}, callback.error);
     });
+
 router.get('/latest', function (request, response) {
     var callback = builder.callbackBuilder(response);
     database.getLatestReports().then(callback.success, callback.error);

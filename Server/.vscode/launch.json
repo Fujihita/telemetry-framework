@@ -19,7 +19,8 @@
                 "SQL_SERVER_URL": "",
                 "SQL_SERVER_LOGIN_NAME": "",
                 "SQL_SERVER_LOGIN_PWD": "",
-                "SQL_SERVER_DATABASE": ""
+                "SQL_SERVER_DATABASE": "",
+                "WEBSOCKET_ADDRESS": "",
             },
             "externalConsole": false,
             "sourceMaps": false,

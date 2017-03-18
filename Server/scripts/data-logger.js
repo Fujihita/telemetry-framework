@@ -58,6 +58,7 @@ app.controller('DataLoggerCtrl', function ($scope, $http, $location, socket, gse
         return result;
     }
 
+
     $http.get("/api/profile").success(function (response) {
         $scope.nodes = response;
 
@@ -68,11 +69,12 @@ app.controller('DataLoggerCtrl', function ($scope, $http, $location, socket, gse
         });
     });
 
-    socket.on('update:data', function (response) {
+    socket.on('update:data', function () {
+        $http.get("/api/latest").success(function (response) {
         $scope.data = mergeNodeReports(response);
         gservice.addLocations($scope.data);
         gservice.addMarker();
-        $scope.$digest();
+        })
     });
 
     function convertArrayOfObjectsToCSV(args) {
