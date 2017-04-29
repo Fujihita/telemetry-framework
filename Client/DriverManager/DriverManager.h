@@ -5,29 +5,31 @@ _______________________________________________________________________
 _______________________________________________________________________
 */
 
-#ifndef SensorDriver_h
-#define SensorDriver_h
+#ifndef DriverManager_h
+#define DriverManager_h
 
 #include "Arduino.h"
 
-class SensorDriver
+class DriverManager
 {
   public:
-  SensorDriver();
+  DriverManager();
   String read();
   void write(String value);
   bool update();
   byte Port;
   String Class;
   int Cycle;
+  bool isSensor();
 
   private:
   long _timer;
-  String temperature();
   String humidity();
-  String pH();
   String generic();
-  void digital_actuator(String value);
+  void actuator_digital(String value);
+  void actuator_analog(String value);
+  void toggle_digital(String value);
+  void toggle_analog(String value);
 };
 
 #endif

@@ -1,7 +1,8 @@
-SensorDriver	KEYWORD1
+DriverManager	KEYWORD1
 Port	KEYWORD2
 Class	KEYWORD2
 Cycle	KEYWORD2
 read	KEYWORD2
 write	KEYWORD2
 update	KEYWORD2
+isSensor    KEYWORD2

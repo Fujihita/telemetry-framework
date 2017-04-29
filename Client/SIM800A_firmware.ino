@@ -1,5 +1,5 @@
 #include <SIM800A.h>
-#include <SensorDriver.h>
+#include <DriverManager.h>
 #define APN_NAME "v-internet"
 #define APN_USER ""
 #define APN_PASSWORD ""
@@ -10,7 +10,7 @@ SIM800A waygate(5,4); // RX, TX
 byte port_number = 0;
 int NodeID = 0;
 
-SensorDriver driver[10];
+DriverManager driver[10];
 
 unsigned long timer = 0;
 int timeout = 0;
