@@ -37,29 +37,52 @@ void loop() {
       if (!driver[i].isSensor())
       {
         String response = getLatest(driver[i].Port);
-        if (response != "")
-          driver[i].write(response);
+        if ((response == "0") && (driver[i].snooze))
+          driver[i].snooze = false;       // output matches server, no need to resend alert
+        if ((response == "") || (response == "Connection failed"))
+          response = driver[i].load();  // reuse last value due to response body error
+        if (response != driver[i].load())    
+          driver[i].snooze = false;   // response changed from memory, clear snooze.
+ 
+        if (!driver[i].snooze) 
+        {
+          driver[i].write(response);  // snooze is off, write new values
+          driver[i].save(response);
+        }                       
       }   
+      
+      Serial.println("check update " + String(i));
+      if (((driver[i].update()) && (driver[i].Cycle > 0)) || (driver[i].snooze))
+          sendPortUpdate(i);  
     }
-     
- }
- for(int i = 0; i < port_number; i++)
-    {
-      if ((driver[i].update()) && (driver[i].Cycle > 0))
-      {  
-          String report = createReport(driver[i].Port, "0");
-          if (driver[i].isSensor())
-            report = createReport(driver[i].Port,driver[i].read());
-          else
-            driver[i].write("0");
-          sendHttp(createPostReq("/api/data", report));
-      }   
-    }
+  }
 }
 
 /*
  * Node client wifi functions
  */
+
+void sendPortUpdate(int i)
+{
+  String report = createReport(driver[i].Port, "0");
+  if (driver[i].isSensor())
+    report = createReport(driver[i].Port,driver[i].read()); // send update for sensors
+  else
+    driver[i].write("0"); // reset output for actuators
+
+  String response = sendHttp(createPostReq("/api/data", report));
+
+  if (response == "Report received!")   // verify submission status
+  {
+    driver[i].save("0");  // match memory to output on success and clear snooze
+    driver[i].snooze = false;
+  }
+  else
+  {
+    driver[i].snooze = true;   // set snooze on error
+    Serial.println("Setting snooze with mem value of " + driver[i].load());
+  }
+}
 
 void connectWifi()
 {
@@ -92,7 +115,6 @@ String getConfig()
 String getLatest(byte Port)
 {
   String response = sendHttp(createGetReq("/api/latest/" + String(NodeID) + "/" + String(Port)));
-  Serial.println(response);
   return response;
 }
 
@@ -102,8 +124,8 @@ String sendHttp(String request)
       //Serial.println(request);
       WiFiClient client;
       if (!client.connect(HOST_IP, 80)) {
-      Serial.println("Connection failed");       
-      return "Connection failed";
+        Serial.println("Connection failed");       
+        return "Connection failed";
       }
       client.print(request);
       delay(100);
@@ -113,7 +135,7 @@ String sendHttp(String request)
       line = client.readStringUntil('\r');
       }
       line.trim();
-      //Serial.println(line);
+      Serial.println(line);
       return line;
 }
 
@@ -147,6 +169,9 @@ return (String("POST ") + String(path) + " HTTP/1.1\r\n" +
 
 void loadDrivers(String response)
 {
+  if (response == "Connection failed")
+    return;
+    
   port_number = 0;
   while(response.indexOf("\"Port") != -1)
   {

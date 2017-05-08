@@ -16,14 +16,18 @@ class DriverManager
   DriverManager();
   String read();
   void write(String value);
+  bool isSensor();
+  void save(String value);
+  String load();
   bool update();
   byte Port;
   String Class;
-  int Cycle;
-  bool isSensor();
+  bool snooze;
+  unsigned long Cycle;
 
   private:
-  long _timer;
+  unsigned long _timer;
+  String _value;
   String humidity();
   String generic();
   void actuator_digital(String value);

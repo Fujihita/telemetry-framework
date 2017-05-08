@@ -14,11 +14,24 @@ DriverManager::DriverManager()
   Class = "Generic";
   Cycle = 0;
   _timer = millis();
+  _value = "";
+  snooze = false;
+}
+
+String DriverManager::load()
+{
+  return _value;
+}
+
+void DriverManager::save(String value)
+{
+  _value = value;
 }
 
 bool DriverManager::update()
 {
-  if (millis() - _timer > Cycle * 1000L)
+  Serial.println(millis() - _timer);
+  if (millis() - _timer > Cycle * 1000UL)
   {
     _timer = millis();
     return true;
@@ -72,13 +85,11 @@ void DriverManager::actuator_digital(String value)
   Cycle = value.toInt();  
   if (Cycle > 0)
   {
-    Serial.println("Pin " + String(Port) + ", ActuatorD, 1");
-    digitalWrite(Port, 1);
+    digitalWrite(Port, 0);
   }
   else
   {
-    Serial.println("Pin " + String(Port) + ", ActuatorD, 0");
-    digitalWrite(Port, 0);
+    digitalWrite(Port, 1);
   }
 }
 
@@ -93,12 +104,10 @@ void DriverManager::toggle_digital(String value)
   _timer = millis();
   if (value.toInt() > 0)
   {
-    Serial.println("Pin " + String(Port) + ", ToggleD, 1");
     digitalWrite(Port, 1);
   }
   else
   {
-    Serial.println("Pin " + String(Port) + ", ToggleD, 0");
     digitalWrite(Port, 0);
   }
 }

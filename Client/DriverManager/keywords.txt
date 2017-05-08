@@ -5,4 +5,7 @@ Cycle	KEYWORD2
 read	KEYWORD2
 write	KEYWORD2
 update	KEYWORD2
+load   KEYWORD2
+save    KEYWORD2
+snooze  KEYWORD2
 isSensor    KEYWORD2
