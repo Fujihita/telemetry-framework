@@ -1,0 +1,13 @@
+/*
+_______________________________________________________________________
+
+   keywords.txt - SIM800A driver library
+_______________________________________________________________________
+*/
+
+SIM800A	KEYWORD1
+login	KEYWORD2
+connect	KEYWORD2
+post	KEYWORD2
+get 	KEYWORD2
+IMEI    KEYWORD2
